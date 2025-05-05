@@ -17,7 +17,7 @@ const holdDiceButton = document.querySelector('.btn--hold');
 
 let currentPlayer = 1;
 let currentDice = 1;
-let currentScore = [0, 0];
+let currentScores = [0, 0];
 let isPlaying = true;
 let totalScores = [0, 0];
 
@@ -41,36 +41,29 @@ function switchPlayer() {
 function resetGame() {
   currentPlayer = 1;
   currentDice = 1;
-  currentScore = 0;
-  totalScores.forEach(el => (el = 0));
+  currentScores.fill(0);
+  totalScores.fill(0);
 
-  updateCurrentScoreOnUI(currentScore);
-  updateTotalScoreOnUI();
+  playerOneCurrentScore.textContent = 0;
+  playerTwoCurrentScore.textContent = 0;
+  playerOneTotalScore.textContent = 0;
+  playerTwoTotalScore.textContent = 0;
 
   dice.classList.add('hidden');
   players.forEach(el => el.classList.remove('player--active'));
-  players[currentPlayer - 1].classList.add('player--win');
+  players[currentPlayer].classList.add('player--active');
+  players.forEach(el => el.classList.remove('player--win'));
+
+  isPlaying = true;
 }
 
-function updateCurrentScoreOnUI(currentScore) {
-  let currentScoreOnUI = 0;
-
-  // currentPlayer === 1
-  //   ? (currentScoreOnUI = +playerOneCurrentScore.textContent)
-  //   : (currentScoreOnUI = +playerTwoCurrentScore.textContent);
-
-  // currentScoreOnUI += currentScore;
-
+function updateCurrentScoreOnUI() {
   currentPlayer === 1
-    ? (playerOneCurrentScore.textContent = currentScore[0])
-    : (playerTwoCurrentScore.textContent = currentScore[0]);
+    ? (playerOneCurrentScore.textContent = currentScores[0])
+    : (playerTwoCurrentScore.textContent = currentScores[1]);
 }
 
 function updateTotalScoreOnUI() {
-  currentPlayer === 1
-    ? (totalScores[0] += +playerOneCurrentScore.textContent)
-    : (totalScores[1] += +playerTwoCurrentScore.textContent);
-
   currentPlayer === 1
     ? (playerOneTotalScore.textContent = totalScores[0])
     : (playerTwoTotalScore.textContent = totalScores[1]);
@@ -89,13 +82,14 @@ rollDiceButton.addEventListener('click', () => {
       return;
     }
 
-    currentScore[currentPlayer - 1] += currentDice;
-    updateCurrentScoreOnUI(currentScore);
+    currentScores[currentPlayer - 1] += currentDice;
+    updateCurrentScoreOnUI();
   }
 });
 
 holdDiceButton.addEventListener('click', function () {
   if (isPlaying) {
+    totalScores[currentPlayer - 1] += currentScores[currentPlayer - 1];
     updateTotalScoreOnUI();
 
     if (totalScores[currentPlayer - 1] >= 10) {
