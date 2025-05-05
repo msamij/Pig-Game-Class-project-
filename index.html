@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pig Game</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+
+  <body id="container">
+    <main class="game-box">
+      <section class="player player--active">
+        <h2 class="player--name">Player 1</h2>
+        <p class="player--total-score" id="player1-total-score">0</p>
+
+        <div class="current-score">
+          <p class="current-score--label">Current Score</p>
+          <p class="current-score--score" id="player1-current-score">0</p>
+        </div>
+      </section>
+
+      <section class="player">
+        <h2 class="player--name">Player 2</h2>
+        <p class="player--total-score" id="player2-total-score">0</p>
+
+        <div class="current-score">
+          <p class="current-score--label">Current Score</p>
+          <p class="current-score--score" id="player2-current-score">0</p>
+        </div>
+      </section>
+
+      <img src="./img/dice-1.png" alt="Playing die" class="dice hidden" />
+      <button class="btn btn--new">🔄 New game</button>
+      <button class="btn btn--rolldice">Roll 🎲 Dice</button>
+      <button class="btn btn--hold">Hold ✋</button>
+    </main>
+
+    <footer>
+      <p class="copyright">&copy; Inspired By Jonas Schmedtmann</p>
+    </footer>
+  </body>
+</html>
